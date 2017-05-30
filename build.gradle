@@ -1,11 +1,33 @@
-group 'cvo001'
-version '1.0-SNAPSHOT'
+//group 'cvo001'
+//version '1.0-SNAPSHOT'
+//
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
 
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+    }
+}
+plugins {
+    id "com.moowork.node" version "1.1.1"
+    id "com.moowork.grunt" version "1.1.1"
+}
+ext.cvo001Path = rootDir.path
+apply from: "$cvo001Path/buildScript/init.cvo.grad"
+
+// com.moowork.node is thw website that provide gradle-node-plugin ;
+apply plugin: 'com.moowork.node'
+// end of adding com.moowork.node;
+//original plugins
 apply plugin: 'ear'
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'war'
-
+// end of original plugins
 sourceCompatibility = 1.8
 
 repositories {
@@ -44,3 +66,59 @@ ear {
 //      securityRole "superadmin"
     }
 }
+
+
+task addExpress(type: YarnTask) {
+    //install the express package only
+    args = ['add'
+            ,'aphrodite'
+            ,'babel-cli', 'babel-core', 'babel-loader'
+            ,'babel-plugin-syntax-decorators', 'babel-plugin-transform-class-properties'
+            ,'babel-plugin-transform-decorators-legacy', 'babel-plugin-transform-es2015-classes'
+            , 'babel-preset-es2015', 'babel-preset-es2017', 'babel-preset-react'
+            ,'babel-preset-stage-0', 'babel-preset-stage-1', 'babel-preset-stage-2'
+            ,'css-loader'
+            ,'file-loader', 'formsy-material-ui', 'grommet'
+            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader', 'material-ui'
+            , 'path', 'paper', 'postcss', 'postcss-cssnext', 'prop-types'
+            ,'radium', 'react', 'react-css-modules', 'react-dom', 'react-redux'
+            ,'react-router', 'react-router-config', 'react-router-dom', 'react-router-redux'
+            ,'react-tap-event-plugin'
+            , 'redux', 'redux-form'
+            ,'style-loader', 'webpack'
+            ,'--dev']
+}
+task removeExpress(type: YarnTask) {
+    //install the express package only
+    args = ['remove'
+            ,'aphrodite'
+            ,'babel-cli', 'babel-core', 'babel-loader'
+            ,'babel-plugin-syntax-decorators', 'babel-plugin-transform-class-properties'
+            ,'babel-plugin-transform-decorators-legacy', 'babel-plugin-transform-es2015-classes'
+            , 'babel-preset-es2015','babel-preset-es2017', 'babel-preset-react'
+            ,'babel-preset-stage-0','babel-preset-stage-1', 'babel-preset-stage-2'
+            ,'css-loader'
+            ,'file-loader', 'formsy-material-ui', 'grommet'
+            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader', 'material-ui'
+            , 'path', 'paper', 'postcss', 'postcss-cssnext', 'prop-types'
+            ,'radium', 'react', 'react-css-modules', 'react-dom', 'react-redux'
+            ,'react-router', 'react-router-config', 'react-router-dom', 'react-router-redux'
+            ,'react-tap-event-plugin'
+            , 'redux', 'redux-form'
+            ,'style-loader', 'webpack'
+            ,'-D']
+}
+task bundle(type: YarnTask) {
+//    inputs.files(fileTree('node_modules'))
+//    inputs.files(fileTree('src/main/webapp/js'))
+    inputs.file('package.json')
+    inputs.file('webpack.config.js')
+
+//    outputs.dir('build/resources/static')
+    outputs.dir('src/main/webapp/jswebpack')
+    dependsOn yarn_install
+    args = ['run', 'build']
+}
+
+// bundle.mustRunAfter addExpress
+war.mustRunAfter bundle
