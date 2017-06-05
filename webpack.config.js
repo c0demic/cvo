@@ -1,9 +1,6 @@
 /**
  * Created by lixin on 5/30/17.
  */
-/**
- * Created by lixin on 5/7/17.
- */
 var path = require('path');
 var webpack = require('webpack');
 var ROOT_PATH = path.resolve(__dirname);
@@ -16,13 +13,15 @@ let commonPlugin = new webpack.optimize.CommonsChunkPlugin({
 module.exports = {
 
     entry: {
-        frontpage: path.resolve(ROOT_PATH, 'src/main/webapp/js/test001.js'),
-        testpage: path.resolve(ROOT_PATH, 'src/main/webapp/apps/Search/search001.js')
+        frontpage: path.resolve(ROOT_PATH, 'src/main/webapp/frontpage/main/webapp/js/frontpage.js'),
+        firefly: path.resolve(ROOT_PATH, 'src/main/webapp/firefly/main/webapp/js/firefly.js'),
+        dataquery: path.resolve(ROOT_PATH, 'src/main/webapp/dataquery/main/webapp/js/dataquery.js'),
+        jupyter: path.resolve(ROOT_PATH, 'src/main/webapp/jupyter/main/webapp/js/jupyter.js'),
     },
     output: {
-        path: path.resolve(ROOT_PATH, 'src/main/webapp/jswebpack'),
+        path: path.resolve(ROOT_PATH, 'src/main/webapp/buildDir'),
         filename: '[name].bundle.js',
-        publicPath: '/jswebpack/'
+        publicPath: path.resolve(ROOT_PATH, '/publicDir/')
     },
 /*    plugins: [ commonPlugin ],*/
     resolve: {
@@ -38,7 +37,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'jsx-loader?harmony',
+                        loader: 'jsx-loader?harmony'
                     }
                 ]
             },
@@ -121,9 +120,8 @@ module.exports = {
                     }
                 ]
             }
-        ],
+        ]
 
-    },
+    }
+};
 
-}
-;

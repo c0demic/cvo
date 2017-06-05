@@ -79,7 +79,7 @@ task addExpress(type: YarnTask) {
             ,'babel-preset-stage-0', 'babel-preset-stage-1', 'babel-preset-stage-2'
             ,'css-loader'
             ,'file-loader', 'formsy-material-ui', 'grommet'
-            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader', 'material-ui'
+            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader','lodash', 'material-ui'
             , 'path', 'paper', 'postcss', 'postcss-cssnext', 'prop-types'
             ,'radium', 'react', 'react-css-modules', 'react-dom', 'react-redux'
             ,'react-router', 'react-router-config', 'react-router-dom', 'react-router-redux'
@@ -99,7 +99,7 @@ task removeExpress(type: YarnTask) {
             ,'babel-preset-stage-0','babel-preset-stage-1', 'babel-preset-stage-2'
             ,'css-loader'
             ,'file-loader', 'formsy-material-ui', 'grommet'
-            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader', 'material-ui'
+            ,'history', 'jsx', 'jsx-loader', 'less', 'less-loader','lodash', 'material-ui'
             , 'path', 'paper', 'postcss', 'postcss-cssnext', 'prop-types'
             ,'radium', 'react', 'react-css-modules', 'react-dom', 'react-redux'
             ,'react-router', 'react-router-config', 'react-router-dom', 'react-router-redux'
@@ -115,7 +115,7 @@ task bundle(type: YarnTask) {
     inputs.file('webpack.config.js')
 
 //    outputs.dir('build/resources/static')
-    outputs.dir('src/main/webapp/jswebpack')
+//    outputs.dir('src/main/webapp/buildDir')
     dependsOn yarn_install
     args = ['run', 'build']
 }
